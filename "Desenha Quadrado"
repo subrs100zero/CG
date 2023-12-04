@@ -6,16 +6,16 @@ int main(void)
 
 	const int LARGURA = 800;
 	const int ALTURA = 600;
-	/* Initialize the library */
+	/* Inicializa a biblioteca */
 	glfwInit();
 	
-	/* Create a windowed mode window and its OpenGL context */
-	GLFWwindow* window = glfwCreateWindow(LARGURA, ALTURA, "Desenha Quadrado", NULL, NULL);
+	/* Cria uma janela em modo de janela e seu contexto OpenGL */
+	GLFWwindow* janela = glfwCreateWindow(LARGURA, ALTURA, "Desenha Quadrado", NULL, NULL);
 
-	/* Make the window's context current */
-	glfwMakeContextCurrent(window);
+	/* Torna o contexto da janela atual */
+	glfwMakeContextCurrent(janela);
 
-	// -- inicio
+	// -- início
 	glClearColor(0.0, 0.15, 0.25, 1.0); // cor de fundo
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glLineWidth(4.f);
@@ -24,19 +24,18 @@ int main(void)
 	glLoadIdentity();
 	glOrtho(-10.0, 10.0, -10.0, 10.0, 1.0, -1.0);
 
-	/* Loop until the user closes the window */
-	while (!glfwWindowShouldClose(window))
+	/* Loop até o usuário fechar a janela */
+	while (!glfwWindowShouldClose(janela))
 	{
-		/* Poll for and process events */
+		/* Aguarda e processa eventos */
 		glfwPollEvents();
-		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		if (glfwGetKey(janela, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		{
-			glfwSetWindowShouldClose(window, GLFW_TRUE);
+			glfwSetWindowShouldClose(janela, GLFW_TRUE);
 		}
 
-		/* Render here */
+		/* Renderiza aqui */
 		glClear(GL_COLOR_BUFFER_BIT);
-
 
 		glColor3f(1.0, 0.0, 0.0);
 		glBegin(GL_QUADS);
@@ -46,11 +45,8 @@ int main(void)
 			glVertex3f(-2.5, 2.5, 0.0);
 		glEnd();
 
-
-
-
-		/* Swap front and back buffers */
-		glfwSwapBuffers(window);
+		/* Troca os buffers frontal e traseiro */
+		glfwSwapBuffers(janela);
 	}
 
 	glfwTerminate();
