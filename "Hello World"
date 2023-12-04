@@ -1,37 +1,37 @@
-#include<gl/glew.h>
+#include <gl/glew.h>
 #include <GLFW/glfw3.h>
-#include<iostream>
+#include <iostream>
 
 int main(void)
 {
     GLFWwindow* window;
 
-    /* Initialize the library */
+    /* Inicializa a biblioteca */
     if (!glfwInit())
         return -1;
 
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    /* Cria uma janela em modo de janela e seu contexto OpenGL */
+    window = glfwCreateWindow(640, 480, "Olá Mundo", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
         return -1;
     }
 
-    /* Make the window's context current */
+    /* Torna o contexto da janela atual */
     glfwMakeContextCurrent(window);
 
     GLenum err = glewInit();
     if (GLEW_OK != err)
     {
-        /* Problem: glewInit failed, something is seriously wrong. */
-        fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+        /* Problema: falha no glewInit, algo está seriamente errado. */
+        fprintf(stderr, "Erro: %s\n", glewGetErrorString(err));
     }
 
-    /* Loop until the user closes the window */
+    /* Loop até o usuário fechar a janela */
     while (!glfwWindowShouldClose(window))
     {
-        /* Render here */
+        /* Renderiza aqui */
         glClear(GL_COLOR_BUFFER_BIT);
 
         glBegin(GL_TRIANGLES);
@@ -40,12 +40,10 @@ int main(void)
         glVertex2f(+0.5f, -0.5f);
         glEnd();
 
-
-
-        /* Swap front and back buffers */
+        /* Troca os buffers frontal e traseiro */
         glfwSwapBuffers(window);
 
-        /* Poll for and process events */
+        /* Aguarda e processa eventos */
         glfwPollEvents();
     }
 
