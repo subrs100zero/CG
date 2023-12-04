@@ -4,22 +4,22 @@
 
 int main(void)
 {
-    GLFWwindow* window;
+    GLFWwindow* janela;
 
-    /* Inicializa a biblioteca */
+    /* Inicializa a biblioteca GLFW */
     if (!glfwInit())
         return -1;
 
     /* Cria uma janela em modo de janela e seu contexto OpenGL */
-    window = glfwCreateWindow(640, 480, "Olá Mundo", NULL, NULL);
-    if (!window)
+    janela = glfwCreateWindow(640, 480, "Olá Mundo", NULL, NULL);
+    if (!janela)
     {
         glfwTerminate();
         return -1;
     }
 
     /* Torna o contexto da janela atual */
-    glfwMakeContextCurrent(window);
+    glfwMakeContextCurrent(janela);
 
     GLenum err = glewInit();
     if (GLEW_OK != err)
@@ -29,7 +29,7 @@ int main(void)
     }
 
     /* Loop até o usuário fechar a janela */
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(janela))
     {
         /* Renderiza aqui */
         glClear(GL_COLOR_BUFFER_BIT);
@@ -41,7 +41,7 @@ int main(void)
         glEnd();
 
         /* Troca os buffers frontal e traseiro */
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(janela);
 
         /* Aguarda e processa eventos */
         glfwPollEvents();
