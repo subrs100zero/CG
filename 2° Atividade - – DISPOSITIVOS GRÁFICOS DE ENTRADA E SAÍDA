@@ -1,0 +1,60 @@
+1 - Os dispositivos gráficos de entrada são componentes eletrônicos cuja função é
+capturar informações (movimentação, interações) para as aplicações.
+2 - Existem vários tipos de dispositivos gráficos de entrada disponíveis no mercado
+como: teclado, mouse, trackball.
+3 - Os dispositivos gráficos de entrada permitem que os usuários interajam com o
+sistema e criem por exemplo imagens com facilidade.
+4 - Dispositivos matriciais geram informações de posição em relação a uma matriz
+de pontos e são de domínio discreto, por exemplo: Scanner. Já os dispositivos
+vetoriais geram informações de posição em relação a um ponto de referência
+através de coordenadas no espaço e são de domínio contínuo por exemplo: mesas
+digitalizadoras.
+5 - Existem os dispositivos de entrada vetoriais que geram informações de posição
+em relação a um ponto de referência de forma interativa. Eles podem ser absolutos
+ou relativos. Dispositivos absolutos fornecem informações de posição absoluta (em
+relação a uma origem fixa) exemplo: caneta ótica, touchpad, enquanto dispositivos
+relativos fornecem informações de posição relativa (em relação a um ponto
+corrente) exemplo: mouse, trackball.
+6 - O tablet gráfico é um dispositivo de entrada vetorial absoluto, já o mouse é um
+dispositivo de entrada vetorial relativo.
+7 - Os dispositivos gráficos de saída são componentes eletrônicos que permite exibir
+ou imprimir informações processadas pelo computador, vindas dos dados de
+entrada, em um formato visualmente perceptível aos usuários.
+8 - Os dispositivos gráficos de saída dividem-se em dispositivos interativos e
+dispositivos não interativos. Os não interativos têm como finalidade a produção de
+cópias permanentes da imagem e podem ser classificados em vetoriais e matriciais.
+Exemplos: Impressora e Plotadoras de mesa. Os interativos exibem informações aos
+usuários e permitem que eles interajam com as diversas aplicações sendo
+utilizadas. Exemplos: Monitores CRT, Displays de cristal líquido, Painéis de plasma.
+9 - Os dispositivos gráficos de saída permitem que os jogadores vejam e interajam
+com o mundo “virtual” criado pelo jogo. Alguns exemplos de dispositivos gráficos de
+saída usados em jogos de videogame são: monitores, TV.
+10 - Os displays LCD (Liquid Crystal display) usam cristais líquidos para criar
+imagens. Eles são amplamente utilizados em monitores de computador, televisores
+e dispositivos móveis. As vantagens dos displays LCD incluem menor consumo de
+energia, menor custo e maior vida útil. No entanto, eles podem ter problemas com
+ângulos de visão limitados e menor brilho e contraste em comparação com os
+displays LED.
+Os displays LED (Light-emitting Diode) são uma evolução dos displays LCD. Eles
+usam diodos emissores de luz para iluminar a tela. As vantagens dos displays LED
+incluem maior eficiência energética, maior brilho e contraste, e maior durabilidade.
+Eles também são mais finos e leves do que os displays LCD. No entanto, os displays
+LED podem ser mais caros do que os displays LCD.
+Os displays de painel de plasma usam pequenas células preenchidas com gases
+ionizados para criar imagens. Eles são amplamente utilizados em televisores de tela
+grande. As vantagens dos displays de painel de plasma incluem maior brilho e
+contraste, melhor qualidade de imagem e ângulos de visão mais amplos. No
+entanto, eles podem ser mais pesados e consumir mais energia do que os displays
+LCD e LED.
+11 - Os monitores CRT (Cathode Ray Tube) foram o padrão para telas de
+computador por muitos anos no passado. Eles usam um tubo de raios catódicos
+para apresentar imagens. Porém, eles são volumosos e pesados, além de
+consumirem muita energia e emitem mais radiação do que os monitores LEDs, LCDs
+e painéis de plasma.
+12 - Essas tecnologias estão impulsionando o desenvolvimento de dispositivos
+gráficos de saída mais avançados e sofisticados, que são capazes de fornecer
+experiências mais imersivas e realistas. Os dispositivos de realidade virtual, por
+exemplo, exigem monitores de alta resolução e taxas de atualização mais rápidas
+para fornecer uma experiência de visualização imersiva. Os dispositivos de realidade
+aumentada, por outro lado, exigem monitores que possam exibir informações
+digitais em sobreposição ao mundo real.
