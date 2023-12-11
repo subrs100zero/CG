@@ -1,4 +1,4 @@
-/*"cores.h"
+/* "cores.h"
 #pragma once
 
 typedef float color[3];
@@ -16,18 +16,18 @@ color cinza_escuro = { 0.67,0.67,0.67 };
 color laranja = { 1.0, 0.6, 0.2 };
 */
 
-/*"primitivas.h"
+/* "primitivas.h"
 #pragma once
-#include<vector>
-#include<cmath>
+#include <vector>
+#include <cmath>
 
 struct vec3 {
 	float x, y, z;
-	vec3() :x(0.0), y(0.0), z(0.0) {}
-	vec3(float x_, float y_, float z_) :x(x_), y(y_), z(z_) {}
+	vec3() : x(0.0), y(0.0), z(0.0) {}
+	vec3(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {}
 };
 
-void rect(vec3 p1, vec3 p2, vec3 p3, vec3 p4, color cor)
+void retangulo(vec3 p1, vec3 p2, vec3 p3, vec3 p4, color cor)
 {
 	glColor3fv(cor);
 	glBegin(GL_QUADS);
@@ -37,6 +37,7 @@ void rect(vec3 p1, vec3 p2, vec3 p3, vec3 p4, color cor)
 	glVertex3fv(&p4.x);
 	glEnd();
 }
+
 void desenhaCubo(float s)
 {
 	float d = s / 2.0;
@@ -52,25 +53,23 @@ void desenhaCubo(float s)
 	vec3 v8(-d, d, -d);
 
 	// frente
-	rect(v1, v2, v3, v4, vermelho);
+	retangulo(v1, v2, v3, v4, vermelho);
 
 	// direita
-	rect(v4, v3, v6, v5, azul);
+	retangulo(v4, v3, v6, v5, azul);
 
-	// back
-	rect(v5, v8, v7, v6, amarelo);
+	// trás
+	retangulo(v5, v8, v7, v6, amarelo);
 
-	//esquerda
-	rect(v1, v8, v7, v2, verde);
+	// esquerda
+	retangulo(v1, v8, v7, v2, verde);
 
-	//topo
-	rect(v1, v4, v5, v8, laranja);
+	// topo
+	retangulo(v1, v4, v5, v8, laranja);
 
-	//bottom
-	rect(v2, v7, v6, v3, violeta);
-
+	// base
+	retangulo(v2, v7, v6, v3, violeta);
 }
-
 
 void desenhaEsfera(GLfloat raio, GLuint nStacks, GLuint nSectors)
 {
@@ -99,11 +98,10 @@ void desenhaEsfera(GLfloat raio, GLuint nStacks, GLuint nSectors)
 			pontos.push_back(vec3(x, y, z));
 			GLuint index = pontos.size() - 1;
 			pt.push_back(index);
-		}// next j
+		}// próximo j
 
 		indices.push_back(pt);
-	}// next i
-
+	}// próximo i
 
 	// --- plota pontos 
 	/*glColor3fv(vermelho);
@@ -170,7 +168,6 @@ void redimensiona(int w, int h)
 	glMatrixMode(GL_MODELVIEW);
 }
 
-
 void desenha()
 {
 	glLoadIdentity();
@@ -183,37 +180,36 @@ void desenha()
 	angulo += 0.1;
 }
 
-
 int main(void)
 {
 
 	const int LARGURA = 800;
 	const int ALTURA = 600;
 
-	/* Initialize the library */
+	/* Inicializa a biblioteca */
 	glfwInit();
 
-	/* Create a windowed mode window and its OpenGL context */
+	/* Cria uma janela em modo de janela e seu contexto OpenGL */
 	GLFWwindow* window = glfwCreateWindow(LARGURA, ALTURA, "Desenha Esfera", NULL, NULL);
 
-	/* Make the window's context current */
+	/* Torna o contexto da janela atual */
 	glfwMakeContextCurrent(window);
 
-	// -- inicio
+	// -- início
 	glClearColor(0.0, 0.15, 0.25, 1.0); // cor de fundo
 	glEnable(GL_DEPTH_TEST);
 
-	/* Loop until the user closes the window */
+	/* Loop até que o usuário feche a janela */
 	while (!glfwWindowShouldClose(window))
 	{
-		/* Poll for and process events */
+		/* Aguarda e processa eventos */
 		glfwPollEvents();
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		{
 			glfwSetWindowShouldClose(window, GLFW_TRUE);
 		}
 
-		/* Render here */
+		/* Renderiza aqui */
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		int largura, altura;
@@ -223,7 +219,7 @@ int main(void)
 
 		desenha();
 
-		/* Swap front and back buffers */
+		/* Troca os buffers frontal e traseiro */
 		glfwSwapBuffers(window);
 	}
 
