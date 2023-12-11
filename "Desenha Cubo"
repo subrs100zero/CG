@@ -3,19 +3,19 @@
 #include <gl/GLU.h>
 #include <iostream>
 
-typedef float color[3];
+typedef float Cor[3];
 
-color vermelho = { 0.85, 0.12, 0.0 };
-color verde = { 0.0, 1.0, 0.0 };
-color azul = { 0.0, 0.15,0.35 };
-color preto = { 0.0, 0.0, 0.0 };
-color branco = { 1.0, 1.0, 1.0 };
-color branco_gelo = { 0.88,0.91,0.89 };
-color amarelo = { 1.0, 1.0, 0.0 };
-color violeta = { 0.54, 0.17, 0.88 };
-color cinza = { 0.8, 0.8, 0.8 };
-color cinza_escuro = { 0.67,0.67,0.67 };
-color laranja = { 1.0, 0.6, 0.2 };
+Cor vermelho = { 0.85, 0.12, 0.0 };
+Cor verde = { 0.0, 1.0, 0.0 };
+Cor azul = { 0.0, 0.15, 0.35 };
+Cor preto = { 0.0, 0.0, 0.0 };
+Cor branco = { 1.0, 1.0, 1.0 };
+Cor branco_gelo = { 0.88, 0.91, 0.89 };
+Cor amarelo = { 1.0, 1.0, 0.0 };
+Cor violeta = { 0.54, 0.17, 0.88 };
+Cor cinza = { 0.8, 0.8, 0.8 };
+Cor cinza_escuro = { 0.67, 0.67, 0.67 };
+Cor laranja = { 1.0, 0.6, 0.2 };
 
 void redimensiona(int w, int h)
 {
@@ -30,7 +30,7 @@ void redimensiona(int w, int h)
     glMatrixMode(GL_MODELVIEW);
 }
 
-void desenhaRetangulo(float p1[3], float p2[3], float p3[3], float p4[3], color cor)
+void desenhaRetangulo(float p1[3], float p2[3], float p3[3], float p4[3], Cor cor)
 {
     glColor3fv(cor);
     glBegin(GL_QUADS);
