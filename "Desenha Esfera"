@@ -74,8 +74,8 @@ void desenhaEsfera(GLfloat raio, GLuint nStacks, GLuint nSectors)
 			GLfloat z = temp * cos(theta);
 
 			pontos.push_back(vec3(x, y, z));
-		} // next j
-	} // next i
+		} // próximo j
+	} // próximo i
 
 	// --- plota pontos 
 	glColor3fv(vermelho);
