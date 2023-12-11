@@ -1,22 +1,25 @@
-#include <GLFW/glfw3.h>
+#include <GL/freeglut.h>
 #include <iostream>
 
 void redimensiona(int w, int h)
 {
     glViewport(0, 0, w, h);
 
-    float aspecto = (float)w / (float)h;
-
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    if (w >= h)
-        glOrtho(-10.0 * aspecto, 10.0 * aspecto, -10.0, 10.0, 1.0, -1.0);
+
+    if (w <= h)
+        glOrtho(-10.0, 10.0, -10.0 * (GLfloat)h / (GLfloat)w, 10.0 * (GLfloat)h / (GLfloat)w, 1.0, -1.0);
     else
-        glOrtho(-10.0, 10.0, -10.0 / aspecto, 10.0 / aspecto, 1.0, -1.0);
+        glOrtho(-10.0 * (GLfloat)w / (GLfloat)h, 10.0 * (GLfloat)w / (GLfloat)h, -10.0, 10.0, 1.0, -1.0);
+
+    glMatrixMode(GL_MODELVIEW);
 }
 
 void desenha()
 {
+    glClear(GL_COLOR_BUFFER_BIT);
+
     glColor3f(1.0, 0.0, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(-2.5, -2.5, 0.0);
@@ -24,50 +27,26 @@ void desenha()
     glVertex3f(2.5, 2.5, 0.0);
     glVertex3f(-2.5, 2.5, 0.0);
     glEnd();
+
+    glutSwapBuffers();
 }
 
-int main(void)
+void inicializa()
 {
-
-    const int LARGURA = 800;
-    const int ALTURA = 600;
-
-    /* Inicializa a biblioteca GLFW */
-    glfwInit();
-
-    /* Cria uma janela em modo de janela e seu contexto OpenGL */
-    GLFWwindow* janela = glfwCreateWindow(LARGURA, ALTURA, "Desenha Quadrado", NULL, NULL);
-
-    /* Torna o contexto da janela atual */
-    glfwMakeContextCurrent(janela);
-
-    // -- início
     glClearColor(0.0, 0.15, 0.25, 1.0); // cor de fundo
+}
 
-    /* Loop até o usuário fechar a janela */
-    while (!glfwWindowShouldClose(janela))
-    {
-        /* Aguarda e processa eventos */
-        glfwPollEvents();
-        if (glfwGetKey(janela, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        {
-            glfwSetWindowShouldClose(janela, GLFW_TRUE);
-        }
+int main(int argc, char** argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+    glutCreateWindow("Desenha Quadrado");
 
-        /* Renderiza aqui */
-        glClear(GL_COLOR_BUFFER_BIT);
+    inicializa();
 
-        int largura, altura;
-        glfwGetFramebufferSize(janela, &largura, &altura);
+    glutReshapeFunc(redimensiona);
+    glutDisplayFunc(desenha);
 
-        redimensiona(largura, altura);
-
-        desenha();
-
-        /* Troca os buffers frontal e traseiro */
-        glfwSwapBuffers(janela);
-    }
-
-    glfwTerminate();
+    glutMainLoop();
     return 0;
 }
