@@ -1,6 +1,6 @@
 #include <GL/freeglut.h>
 
-void display()
+void exibe()
 {
     /* Renderizar aqui */
     glClear(GL_COLOR_BUFFER_BIT);
@@ -15,19 +15,19 @@ void display()
     glutSwapBuffers();
 }
 
-void reshape(int w, int h)
+void redimensiona(int largura, int altura)
 {
-    glViewport(0, 0, w, h);
+    glViewport(0, 0, largura, altura);
 }
 
 int main(int argc, char** argv)
 {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-    glutCreateWindow("Hello Shader - Triangle");
+    glutCreateWindow("Olá Shader - Triângulo");
 
-    glutDisplayFunc(display);
-    glutReshapeFunc(reshape);
+    glutDisplayFunc(exibe);
+    glutReshapeFunc(redimensiona);
 
     glutMainLoop();
     return 0;
