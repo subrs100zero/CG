@@ -1,68 +1,29 @@
-#include <gl/glew.h>
-#include <GLFW/glfw3.h>
-#include <iostream>
+#include <GL/freeglut.h>
 
-void inicializarOpenGL()
+void display()
 {
-    float vertices[] =
-    {
-        +0.0f, +0.5f,
-        - 0.5f, -0.5f,
-        + 0.5f, -0.5f
-    };
+    /* Renderiza aqui */
+    glClear(GL_COLOR_BUFFER_BIT);
 
-    unsigned int idBuffer = 0;
-    glGenBuffers(1, &idBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, idBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBegin(GL_TRIANGLES);
+    glVertex2f(+0.0f, +0.5f);
+    glVertex2f(-0.5f, -0.5f);
+    glVertex2f(+0.5f, -0.5f);
+    glEnd();
 
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(0);
+    /* Troca os buffers frontal e traseiro */
+    glutSwapBuffers();
 }
 
-int main(void)
+int main(int argc, char** argv)
 {
-    GLFWwindow* janela;
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+    glutCreateWindow("Olá Mundo");
 
-    /* Inicializa a biblioteca GLFW */
-    if (!glfwInit())
-        return -1;
-
-    /* Cria uma janela em modo de janela e seu contexto OpenGL */
-    janela = glfwCreateWindow(640, 480, "Olá Mundo", NULL, NULL);
-    if (!janela)
-    {
-        glfwTerminate();
-        return -1;
-    }
-
-    /* Torna o contexto da janela atual */
-    glfwMakeContextCurrent(janela);
-
-    GLenum err = glewInit();
-    if (GLEW_OK != err)
-    {
-        /* Problema: falha no glewInit, algo está seriamente errado. */
-        fprintf(stderr, "Erro: %s\n", glewGetErrorString(err));
-    }
-
-    inicializarOpenGL();
+    glutDisplayFunc(display);
 
     /* Loop até o usuário fechar a janela */
-    while (!glfwWindowShouldClose(janela))
-    {
-        /* Renderiza aqui */
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-
-        /* Troca os buffers frontal e traseiro */
-        glfwSwapBuffers(janela);
-
-        /* Aguarda e processa eventos */
-        glfwPollEvents();
-    }
-
-    glfwTerminate();
+    glutMainLoop();
     return 0;
 }
