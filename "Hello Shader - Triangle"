@@ -1,6 +1,6 @@
 #include <GL/freeglut.h>
 
-void drawTriangle()
+void desenhaTriangulo()
 {
     glBegin(GL_TRIANGLES);
     glVertex2f(0.0f, 0.5f);
@@ -9,19 +9,19 @@ void drawTriangle()
     glEnd();
 }
 
-void display()
+void exibe()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
     glColor3f(1.0f, 1.0f, 0.0f); // Cor amarela
-    drawTriangle();
+    desenhaTriangulo();
 
     glutSwapBuffers();
 }
 
-void reshape(int w, int h)
+void redimensiona(int largura, int altura)
 {
-    glViewport(0, 0, w, h);
+    glViewport(0, 0, largura, altura);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(-1.0, 1.0, -1.0, 1.0);
@@ -32,10 +32,10 @@ int main(int argc, char** argv)
 {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-    glutCreateWindow("Hello Shader - Triangle");
+    glutCreateWindow("Olá Shader - Triângulo");
 
-    glutDisplayFunc(display);
-    glutReshapeFunc(reshape);
+    glutDisplayFunc(exibe);
+    glutReshapeFunc(redimensiona);
 
     glutMainLoop();
     return 0;
