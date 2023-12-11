@@ -1,7 +1,7 @@
 /* "primitivas.h"
 #pragma once
-#include<vector>
-#include<cmath>
+#include <vector>
+#include <cmath>
 
 struct vec3 {
 	float x, y, z;
