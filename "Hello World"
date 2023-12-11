@@ -1,8 +1,8 @@
 #include <GL/freeglut.h>
 
-void display()
+void exibe()
 {
-    /* Renderiza aqui */
+    /* Renderizar aqui */
     glClear(GL_COLOR_BUFFER_BIT);
 
     glBegin(GL_TRIANGLES);
@@ -11,7 +11,7 @@ void display()
     glVertex2f(+0.5f, -0.5f);
     glEnd();
 
-    /* Troca os buffers frontal e traseiro */
+    /* Trocar os buffers frontal e traseiro */
     glutSwapBuffers();
 }
 
@@ -21,7 +21,7 @@ int main(int argc, char** argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutCreateWindow("Olá Mundo");
 
-    glutDisplayFunc(display);
+    glutDisplayFunc(exibe);
 
     glutMainLoop();
     return 0;
