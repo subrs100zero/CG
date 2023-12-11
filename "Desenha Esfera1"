@@ -5,19 +5,19 @@
 #include <vector>
 #include <cmath>
 
-typedef float color[3];
+typedef float cor[3];
 
-color vermelho = { 0.85, 0.12, 0.0 };
-color verde = { 0.0, 1.0, 0.0 };
-color azul = { 0.0, 0.15, 0.35 };
-color preto = { 0.0, 0.0, 0.0 };
-color branco = { 1.0, 1.0, 1.0 };
-color branco_gelo = { 0.88, 0.91, 0.89 };
-color amarelo = { 1.0, 1.0, 0.0 };
-color violeta = { 0.54, 0.17, 0.88 };
-color cinza = { 0.8, 0.8, 0.8 };
-color cinza_escuro = { 0.67, 0.67, 0.67 };
-color laranja = { 1.0, 0.6, 0.2 };
+cor vermelho = { 0.85, 0.12, 0.0 };
+cor verde = { 0.0, 1.0, 0.0 };
+cor azul = { 0.0, 0.15, 0.35 };
+cor preto = { 0.0, 0.0, 0.0 };
+cor branco = { 1.0, 1.0, 1.0 };
+cor branco_gelo = { 0.88, 0.91, 0.89 };
+cor amarelo = { 1.0, 1.0, 0.0 };
+cor violeta = { 0.54, 0.17, 0.88 };
+cor cinza = { 0.8, 0.8, 0.8 };
+cor cinza_escuro = { 0.67, 0.67, 0.67 };
+cor laranja = { 1.0, 0.6, 0.2 };
 
 struct vec3 {
     float x, y, z;
@@ -25,7 +25,7 @@ struct vec3 {
     vec3(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {}
 };
 
-void retangulo(vec3 p1, vec3 p2, vec3 p3, vec3 p4, color cor)
+void retangulo(vec3 p1, vec3 p2, vec3 p3, vec3 p4, cor cor)
 {
     glColor3fv(cor);
     glBegin(GL_QUADS);
@@ -179,7 +179,7 @@ int main(int argc, char** argv)
 
     glutReshapeFunc(redimensiona);
     glutDisplayFunc(desenha);
-    glutIdleFunc(atualiza);  // Add the idle function for continuous update
+    glutIdleFunc(atualiza);  // Adiciona a função de atualização
 
     glutMainLoop();
 
