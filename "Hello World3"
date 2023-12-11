@@ -8,7 +8,7 @@ void inicializarOpenGL()
 
 void exibir()
 {
-    /* Renderiza aqui */
+    /* Renderize aqui */
     glClear(GL_COLOR_BUFFER_BIT);
 
     glBegin(GL_TRIANGLES);
@@ -17,7 +17,7 @@ void exibir()
     glVertex2f(+0.5f, -0.5f);
     glEnd();
 
-    /* Troca os buffers frontal e traseiro */
+    /* Troque os buffers frontal e traseiro */
     glutSwapBuffers();
 }
 
@@ -29,7 +29,7 @@ int main(int argc, char** argv)
 
     inicializarOpenGL();
 
-    /* Registra a função de exibição */
+    /* Registre a função de exibição */
     glutDisplayFunc(exibir);
 
     /* Loop até o usuário fechar a janela */
