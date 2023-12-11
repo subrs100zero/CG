@@ -17,7 +17,7 @@ void redimensiona(int w, int h)
     glMatrixMode(GL_MODELVIEW);
 }
 
-void retangulo(float p1[3], float p2[3], float p3[3], float p4[3], color cor)
+void desenhaRetangulo(float p1[3], float p2[3], float p3[3], float p4[3], color cor)
 {
     glColor3fv(cor);
     glBegin(GL_QUADS);
@@ -43,22 +43,22 @@ void desenhaCubo(float s)
     float v8[3] = { -d,  d, -d };
 
     // frente
-    retangulo(v1, v2, v3, v4, vermelho);
+    desenhaRetangulo(v1, v2, v3, v4, vermelho);
 
     // direita
-    retangulo(v4, v3, v6, v5, azul);
+    desenhaRetangulo(v4, v3, v6, v5, azul);
 
     // trás
-    retangulo(v5, v8, v7, v6, amarelo);
+    desenhaRetangulo(v5, v8, v7, v6, amarelo);
 
     // esquerda
-    retangulo(v1, v8, v7, v2, verde);
+    desenhaRetangulo(v1, v8, v7, v2, verde);
 
     // topo
-    retangulo(v1, v4, v5, v8, laranja);
+    desenhaRetangulo(v1, v4, v5, v8, laranja);
 
     // base
-    retangulo(v2, v7, v6, v3, violeta);
+    desenhaRetangulo(v2, v7, v6, v3, violeta);
 }
 
 void desenha()
