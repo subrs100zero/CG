@@ -1,52 +1,28 @@
-#include <gl/glew.h>
-#include <GLFW/glfw3.h>
-#include <iostream>
+#include <GL/freeglut.h>
 
-int main(void)
+void display()
 {
-    GLFWwindow* janela;
+    /* Renderiza aqui */
+    glClear(GL_COLOR_BUFFER_BIT);
 
-    /* Inicializa a biblioteca GLFW */
-    if (!glfwInit())
-        return -1;
+    glBegin(GL_TRIANGLES);
+    glVertex2f(+0.0f, +0.5f);
+    glVertex2f(-0.5f, -0.5f);
+    glVertex2f(+0.5f, -0.5f);
+    glEnd();
 
-    /* Cria uma janela em modo de janela e seu contexto OpenGL */
-    janela = glfwCreateWindow(640, 480, "Olá Mundo", NULL, NULL);
-    if (!janela)
-    {
-        glfwTerminate();
-        return -1;
-    }
+    /* Troca os buffers frontal e traseiro */
+    glutSwapBuffers();
+}
 
-    /* Torna o contexto da janela atual */
-    glfwMakeContextCurrent(janela);
+int main(int argc, char** argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+    glutCreateWindow("Olá Mundo");
 
-    GLenum err = glewInit();
-    if (GLEW_OK != err)
-    {
-        /* Problema: falha no glewInit, algo está seriamente errado. */
-        fprintf(stderr, "Erro: %s\n", glewGetErrorString(err));
-    }
+    glutDisplayFunc(display);
 
-    /* Loop até o usuário fechar a janela */
-    while (!glfwWindowShouldClose(janela))
-    {
-        /* Renderiza aqui */
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        glBegin(GL_TRIANGLES);
-        glVertex2f(+0.0f, +0.5f);
-        glVertex2f(-0.5f, -0.5f);
-        glVertex2f(+0.5f, -0.5f);
-        glEnd();
-
-        /* Troca os buffers frontal e traseiro */
-        glfwSwapBuffers(janela);
-
-        /* Aguarda e processa eventos */
-        glfwPollEvents();
-    }
-
-    glfwTerminate();
+    glutMainLoop();
     return 0;
 }
