@@ -1,54 +1,50 @@
-#include <GLFW/glfw3.h>
-#include<iostream>
+#include <GL/freeglut.h>
+#include <iostream>
 
-int main(void)
+void desenha()
 {
+    glClear(GL_COLOR_BUFFER_BIT);
 
-	const int LARGURA = 800;
-	const int ALTURA = 600;
-	/* Inicializa a biblioteca */
-	glfwInit();
-	
-	/* Cria uma janela em modo de janela e seu contexto OpenGL */
-	GLFWwindow* janela = glfwCreateWindow(LARGURA, ALTURA, "Desenha Quadrado", NULL, NULL);
+    glColor3f(1.0, 0.0, 0.0);
+    glBegin(GL_QUADS);
+        glVertex3f(-2.5, -2.5, 0.0);
+        glVertex3f(2.5, -2.5, 0.0);
+        glVertex3f(2.5, 2.5, 0.0);
+        glVertex3f(-2.5, 2.5, 0.0);
+    glEnd();
 
-	/* Torna o contexto da janela atual */
-	glfwMakeContextCurrent(janela);
+    glutSwapBuffers();
+}
 
-	// -- início
-	glClearColor(0.0, 0.15, 0.25, 1.0); // cor de fundo
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glLineWidth(4.f);
+void redimensiona(int w, int h)
+{
+    glViewport(0, 0, w, h);
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(-10.0, 10.0, -10.0, 10.0, 1.0, -1.0);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-10.0, 10.0, -10.0, 10.0, 1.0, -1.0);
 
-	/* Loop até o usuário fechar a janela */
-	while (!glfwWindowShouldClose(janela))
-	{
-		/* Aguarda e processa eventos */
-		glfwPollEvents();
-		if (glfwGetKey(janela, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		{
-			glfwSetWindowShouldClose(janela, GLFW_TRUE);
-		}
+    glMatrixMode(GL_MODELVIEW);
+}
 
-		/* Renderiza aqui */
-		glClear(GL_COLOR_BUFFER_BIT);
+void inicializa()
+{
+    glClearColor(0.0, 0.15, 0.25, 1.0); // cor de fundo
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glLineWidth(4.0);
+}
 
-		glColor3f(1.0, 0.0, 0.0);
-		glBegin(GL_QUADS);
-			glVertex3f(-2.5, -2.5, 0.0);
-			glVertex3f(2.5, -2.5, 0.0);
-			glVertex3f(2.5, 2.5, 0.0);
-			glVertex3f(-2.5, 2.5, 0.0);
-		glEnd();
+int main(int argc, char** argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+    glutCreateWindow("Desenha Quadrado");
 
-		/* Troca os buffers frontal e traseiro */
-		glfwSwapBuffers(janela);
-	}
+    inicializa();
 
-	glfwTerminate();
-	return 0;
+    glutReshapeFunc(redimensiona);
+    glutDisplayFunc(desenha);
+
+    glutMainLoop();
+    return 0;
 }
