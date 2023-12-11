@@ -5,27 +5,27 @@
 #include <vector>
 #include <cmath>
 
-typedef float cor[3];
+typedef float Cor[3];
 
-cor vermelho = { 0.85, 0.12, 0.0 };
-cor verde = { 0.0, 1.0, 0.0 };
-cor azul = { 0.0, 0.15, 0.35 };
-cor preto = { 0.0, 0.0, 0.0 };
-cor branco = { 1.0, 1.0, 1.0 };
-cor branco_gelo = { 0.88, 0.91, 0.89 };
-cor amarelo = { 1.0, 1.0, 0.0 };
-cor violeta = { 0.54, 0.17, 0.88 };
-cor cinza = { 0.8, 0.8, 0.8 };
-cor cinza_escuro = { 0.67, 0.67, 0.67 };
-cor laranja = { 1.0, 0.6, 0.2 };
+Cor vermelho = { 0.85, 0.12, 0.0 };
+Cor verde = { 0.0, 1.0, 0.0 };
+Cor azul = { 0.0, 0.15, 0.35 };
+Cor preto = { 0.0, 0.0, 0.0 };
+Cor branco = { 1.0, 1.0, 1.0 };
+Cor branco_gelo = { 0.88, 0.91, 0.89 };
+Cor amarelo = { 1.0, 1.0, 0.0 };
+Cor violeta = { 0.54, 0.17, 0.88 };
+Cor cinza = { 0.8, 0.8, 0.8 };
+Cor cinza_escuro = { 0.67, 0.67, 0.67 };
+Cor laranja = { 1.0, 0.6, 0.2 };
 
-struct vec3 {
+struct Vec3 {
     float x, y, z;
-    vec3() : x(0.0), y(0.0), z(0.0) {}
-    vec3(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {}
+    Vec3() : x(0.0), y(0.0), z(0.0) {}
+    Vec3(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {}
 };
 
-void retangulo(vec3 p1, vec3 p2, vec3 p3, vec3 p4, cor cor)
+void Retangulo(Vec3 p1, Vec3 p2, Vec3 p3, Vec3 p4, Cor cor)
 {
     glColor3fv(cor);
     glBegin(GL_QUADS);
@@ -36,43 +36,43 @@ void retangulo(vec3 p1, vec3 p2, vec3 p3, vec3 p4, cor cor)
     glEnd();
 }
 
-void desenhaCubo(float s)
+void DesenhaCubo(float s)
 {
     float d = s / 2.0;
 
-    vec3 v1(-d, d, d);
-    vec3 v2(-d, -d, d);
-    vec3 v3(d, -d, d);
-    vec3 v4(d, d, d);
+    Vec3 v1(-d, d, d);
+    Vec3 v2(-d, -d, d);
+    Vec3 v3(d, -d, d);
+    Vec3 v4(d, d, d);
 
-    vec3 v5(d, d, -d);
-    vec3 v6(d, -d, -d);
-    vec3 v7(-d, -d, -d);
-    vec3 v8(-d, d, -d);
+    Vec3 v5(d, d, -d);
+    Vec3 v6(d, -d, -d);
+    Vec3 v7(-d, -d, -d);
+    Vec3 v8(-d, d, -d);
 
     // frente
-    retangulo(v1, v2, v3, v4, vermelho);
+    Retangulo(v1, v2, v3, v4, vermelho);
 
     // direita
-    retangulo(v4, v3, v6, v5, azul);
+    Retangulo(v4, v3, v6, v5, azul);
 
     // trás
-    retangulo(v5, v8, v7, v6, amarelo);
+    Retangulo(v5, v8, v7, v6, amarelo);
 
     // esquerda
-    retangulo(v1, v8, v7, v2, verde);
+    Retangulo(v1, v8, v7, v2, verde);
 
     // topo
-    retangulo(v1, v4, v5, v8, laranja);
+    Retangulo(v1, v4, v5, v8, laranja);
 
     // base
-    retangulo(v2, v7, v6, v3, violeta);
+    Retangulo(v2, v7, v6, v3, violeta);
 }
 
-void desenhaEsfera(GLfloat raio, GLuint nStacks, GLuint nSectors)
+void DesenhaEsfera(GLfloat raio, GLuint nStacks, GLuint nSectors)
 {
     std::vector<std::vector<GLuint>> indices;
-    std::vector<vec3> pontos;
+    std::vector<Vec3> pontos;
     const GLfloat PI = 3.14159265359;
 
     GLfloat deltaPhi = PI / nStacks;
@@ -92,7 +92,7 @@ void desenhaEsfera(GLfloat raio, GLuint nStacks, GLuint nSectors)
             GLfloat x = temp * sin(theta);
             GLfloat z = temp * cos(theta);
 
-            pontos.push_back(vec3(x, y, z));
+            pontos.push_back(Vec3(x, y, z));
             GLuint index = pontos.size() - 1;
             pt.push_back(index);
         }
@@ -133,7 +133,7 @@ void desenhaEsfera(GLfloat raio, GLuint nStacks, GLuint nSectors)
 }
 static float angulo = 0.0;
 
-void redimensiona(int w, int h)
+void Redimensiona(int w, int h)
 {
     glViewport(0, 0, w, h);
 
@@ -146,7 +146,7 @@ void redimensiona(int w, int h)
     glMatrixMode(GL_MODELVIEW);
 }
 
-void desenha()
+void Desenha()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -155,13 +155,13 @@ void desenha()
     glPushMatrix();
     glTranslatef(0.0, 0.0, -50.0);
     glRotatef(angulo, 1.0, 1.0, 0.0);
-    desenhaEsfera(10.0, 20.0, 20.0);
+    DesenhaEsfera(10.0, 20.0, 20.0);
     glPopMatrix();
 
     glutSwapBuffers();
 }
 
-void atualiza()
+void Atualiza()
 {
     angulo += 0.1;
     glutPostRedisplay();
@@ -177,9 +177,9 @@ int main(int argc, char** argv)
     glClearColor(0.0, 0.15, 0.25, 1.0); // cor de fundo
     glEnable(GL_DEPTH_TEST);
 
-    glutReshapeFunc(redimensiona);
-    glutDisplayFunc(desenha);
-    glutIdleFunc(atualiza);  // Adiciona a função de atualização
+    glutReshapeFunc(Redimensiona);
+    glutDisplayFunc(Desenha);
+    glutIdleFunc(Atualiza);  // Adiciona a função de atualização
 
     glutMainLoop();
 
