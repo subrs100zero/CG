@@ -1,106 +1,103 @@
-/* "primitivas.h"
-#pragma once
-#include<vector>
-#include<cmath>
+#include <Windows.h>
+#include <GL/glut.h>
+#include <gl/GLU.h>
+#include <iostream>
+#include <vector>
+#include <cmath>
 
 struct vec3 {
-	float x, y, z;
-	vec3() : x(0.0), y(0.0), z(0.0) {}
-	vec3(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {}
+    float x, y, z;
+    vec3() : x(0.0), y(0.0), z(0.0) {}
+    vec3(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {}
 };
 
-void retangulo(vec3 p1, vec3 p2, vec3 p3, vec3 p4, color cor)
+typedef float Cor[3];
+
+Cor vermelho = { 0.85, 0.12, 0.0 };
+Cor verde = { 0.0, 1.0, 0.0 };
+Cor azul = { 0.0, 0.15, 0.35 };
+Cor amarelo = { 1.0, 1.0, 0.0 };
+Cor laranja = { 1.0, 0.6, 0.2 };
+
+void retangulo(vec3 p1, vec3 p2, vec3 p3, vec3 p4, Cor cor)
 {
-	glColor3fv(cor);
-	glBegin(GL_QUADS);
-	glVertex3fv(&p1.x);
-	glVertex3fv(&p2.x);
-	glVertex3fv(&p3.x);
-	glVertex3fv(&p4.x);
-	glEnd();
+    glColor3fv(cor);
+    glBegin(GL_QUADS);
+    glVertex3fv(&p1.x);
+    glVertex3fv(&p2.x);
+    glVertex3fv(&p3.x);
+    glVertex3fv(&p4.x);
+    glEnd();
 }
 
 void desenhaCubo(float s)
 {
-	float d = s / 2.0;
+    float d = s / 2.0;
 
-	vec3 v1(-d, d, d);
-	vec3 v2(-d, -d, d);
-	vec3 v3(d, -d, d);
-	vec3 v4(d, d, d);
+    vec3 v1(-d, d, d);
+    vec3 v2(-d, -d, d);
+    vec3 v3(d, -d, d);
+    vec3 v4(d, d, d);
 
-	vec3 v5(d, d, -d);
-	vec3 v6(d, -d, -d);
-	vec3 v7(-d, -d, -d);
-	vec3 v8(-d, d, -d);
+    vec3 v5(d, d, -d);
+    vec3 v6(d, -d, -d);
+    vec3 v7(-d, -d, -d);
+    vec3 v8(-d, d, -d);
 
-	// frente
-	retangulo(v1, v2, v3, v4, vermelho);
+    // frente
+    retangulo(v1, v2, v3, v4, vermelho);
 
-	// direita
-	retangulo(v4, v3, v6, v5, azul);
+    // direita
+    retangulo(v4, v3, v6, v5, azul);
 
-	// trás
-	retangulo(v5, v8, v7, v6, amarelo);
+    // trás
+    retangulo(v5, v8, v7, v6, amarelo);
 
-	// esquerda
-	retangulo(v1, v8, v7, v2, verde);
+    // esquerda
+    retangulo(v1, v8, v7, v2, verde);
 
-	// topo
-	retangulo(v1, v4, v5, v8, laranja);
+    // topo
+    retangulo(v1, v4, v5, v8, laranja);
 
-	// base
-	retangulo(v2, v7, v6, v3, violeta);
+    // base
+    retangulo(v2, v7, v6, v3, azul);
 }
 
-void desenhaEsfera(unsigned int& id, color cor, GLfloat raio, GLuint nStacks, GLuint nSectors)
+void desenhaEsfera(GLfloat raio, GLuint nStacks, GLuint nSectors, Cor cor)
 {
-	std::vector<std::vector<GLuint>> indices;
+    std::vector<std::vector<GLuint>> indices;
+    std::vector<vec3> pontos;
+    const GLfloat PI = 3.14159265359;
 
-	std::vector<vec3> pontos;
-	const GLfloat PI = 3.14159265359;
+    GLfloat deltaPhi = PI / nStacks;
+    GLfloat deltaTheta = 2 * PI / nSectors;
 
-	GLfloat deltaPhi = PI / nStacks;
-	GLfloat deltaTheta = 2 * PI / nSectors;
+    for (GLuint i = 0; i <= nStacks; i++)
+    {
+        GLfloat phi = -PI / 2.0 + i * deltaPhi;
+        GLfloat temp = raio * cos(phi);
+        GLfloat y = raio * sin(phi);
 
-	for (GLuint i = 0; i <= nStacks; i++)
-	{
-		GLfloat phi = -PI / 2.0 + i * deltaPhi;
-		GLfloat temp = raio * cos(phi);
-		GLfloat y = raio * sin(phi);
+        std::vector<GLuint> pt;
 
-		std::vector<GLuint> pt;
+        for (GLuint j = 0; j < nSectors; j++)
+        {
+            GLfloat theta = j * deltaTheta;
+            GLfloat x = temp * sin(theta);
+            GLfloat z = temp * cos(theta);
 
-		for (GLuint j = 0; j < nSectors; j++)
-		{
-			GLfloat theta = j * deltaTheta;
-			GLfloat x = temp * sin(theta);
-			GLfloat z = temp * cos(theta);
+            pontos.push_back(vec3(x, y, z));
+            GLuint index = pontos.size() - 1;
+            pt.push_back(index);
+        }
 
-			pontos.push_back(vec3(x, y, z));
-			GLuint index = pontos.size() - 1;
-			pt.push_back(index);
-		} // próximo j
+        indices.push_back(pt);
+    }
 
-		indices.push_back(pt);
-	} // próximo i
+    glColor3fv(cor);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	// --- plota pontos
-	/*glColor3fv(vermelho);
-	glPointSize(2.5);
-	glBegin(GL_POINTS);
-	for (GLuint i = 0; i < pontos.size(); i++)
-	{
-		glVertex3fv(&pontos[i].x);
-	}
-	glEnd();*/
-
-	glNewList(id, GL_COMPILE);
-
-	glColor3fv(cor);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	for (GLuint i = 0; i < nStacks; i++)
+    for (GLuint i = 0; i < nStacks; i++)
 	{
 
 		glBegin(GL_TRIANGLE_STRIP);
@@ -122,120 +119,72 @@ void desenhaEsfera(unsigned int& id, color cor, GLfloat raio, GLuint nStacks, GL
 		}
 		glEnd();
 	}
-	glEndList();
 }
-*/
-
-#include <Windows.h>
-#include <GLFW/glfw3.h>
-#include <gl/GLU.h>
-#include <iostream>
-#include "cores.h"
-#include "primitivas.h"
 
 static float angulo = 0.0;
 
-// Display List
-unsigned int esferaID[3];
-
 void redimensiona(int w, int h)
 {
-	glViewport(0, 0, w, h);
+    glViewport(0, 0, w, h);
 
-	float aspect = (float)w / (float)h;
+    float aspect = (float)w / (float)h;
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(45.0, aspect, 0.1, 500.0);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(45.0, aspect, 0.1, 500.0);
 
-	glMatrixMode(GL_MODELVIEW);
+    glMatrixMode(GL_MODELVIEW);
 }
 
 void desenha()
 {
-	glLoadIdentity();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glPushMatrix();
-	glTranslatef(-30.0, 0.0, -50.0);
-	glRotatef(angulo, 1.0, 1.0, 0.0);
-	glCallList(esferaID[0]);
-	glPopMatrix();
+    glLoadIdentity();
 
-	glPushMatrix();
-	glTranslatef(0.0, 0.0, -50.0);
-	glRotatef(angulo, 1.0, 1.0, 0.0);
-	glCallList(esferaID[1]);
-	glPopMatrix();
+    glPushMatrix();
+    glTranslatef(-30.0, 0.0, -50.0);
+    glRotatef(angulo, 1.0, 1.0, 0.0);
+    desenhaEsfera(10.0, 20.0, 20.0, verde);
+    glPopMatrix();
 
-	glPushMatrix();
-	glTranslatef(30.0, 0.0, -50.0);
-	glRotatef(angulo, 1.0, 1.0, 0.0);
-	glCallList(esferaID[2]);
-	glPopMatrix();
+    glPushMatrix();
+    glTranslatef(0.0, 0.0, -50.0);
+    glRotatef(angulo, 1.0, 1.0, 0.0);
+    desenhaEsfera(5.0, 20.0, 20.0, laranja);
+    glPopMatrix();
 
-	angulo += 0.05;
-	if (angulo >= 360.0)
-		angulo = 0.0;
+    glPushMatrix();
+    glTranslatef(30.0, 0.0, -50.0);
+    glRotatef(angulo, 1.0, 1.0, 0.0);
+    desenhaEsfera(8.0, 20.0, 20.0, azul);
+    glPopMatrix();
+
+    angulo += 0.05;
+    if (angulo >= 360.0)
+        angulo = 0.0;
+
+    glutSwapBuffers();
 }
 
 void init()
 {
-	//glClearColor(0.0, 0.15, 0.25, 1.0); // cor de fundo
-	glClearColor(0.0, 0.0, 0.0, 1.0);
-
-	glEnable(GL_DEPTH_TEST);
-
-	esferaID[0] = glGenLists(3);
-	esferaID[1] = esferaID[0] + 1;
-	esferaID[2] = esferaID[0] + 2;
-
-	desenhaEsfera(esferaID[0], verde, 10.0, 20.0, 20.0);
-	desenhaEsfera(esferaID[1], laranja, 5.0, 20.0, 20.0);
-	desenhaEsfera(esferaID[2], azul, 8.0, 20.0, 20.0);
+    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glEnable(GL_DEPTH_TEST);
 }
 
-int main(void)
+int main(int argc, char** argv)
 {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+    glutCreateWindow("Desenha Esfera");
 
-	const int LARGURA = 800;
-	const int ALTURA = 600;
+    init();
 
-	/* Inicializa a biblioteca */
-	glfwInit();
+    glutReshapeFunc(redimensiona);
+    glutDisplayFunc(desenha);
+    glutIdleFunc(desenha);
 
-	/* Cria uma janela em modo de janela e seu contexto OpenGL */
-	GLFWwindow* window = glfwCreateWindow(LARGURA, ALTURA, "Desenha Esfera", NULL, NULL);
-
-	/* Torna o contexto da janela atual */
-	glfwMakeContextCurrent(window);
-
-	// -- início
-	init();
-
-	/* Loop até que o usuário feche a janela */
-	while (!glfwWindowShouldClose(window))
-	{
-		/* Aguarda e processa eventos */
-		glfwPollEvents();
-		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		{
-			glfwSetWindowShouldClose(window, GLFW_TRUE);
-		}
-
-		/* Renderiza aqui */
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		int largura, altura;
-		glfwGetFramebufferSize(window, &largura, &altura);
-
-		redimensiona(largura, altura);
-
-		desenha();
-
-		/* Troca os buffers frontal e traseiro */
-		glfwSwapBuffers(window);
-	}
-
-	glfwTerminate();
-	return 0;
+    glutMainLoop();
+    return 0;
 }
