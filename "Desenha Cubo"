@@ -1,8 +1,21 @@
 #include <Windows.h>
-#include <GLFW/glfw3.h>
+#include <GL/glut.h>
 #include <gl/GLU.h>
 #include <iostream>
-#include "cores.h"
+
+typedef float color[3];
+
+color vermelho = { 0.85, 0.12, 0.0 };
+color verde = { 0.0, 1.0, 0.0 };
+color azul = { 0.0, 0.15,0.35 };
+color preto = { 0.0, 0.0, 0.0 };
+color branco = { 1.0, 1.0, 1.0 };
+color branco_gelo = { 0.88,0.91,0.89 };
+color amarelo = { 1.0, 1.0, 0.0 };
+color violeta = { 0.54, 0.17, 0.88 };
+color cinza = { 0.8, 0.8, 0.8 };
+color cinza_escuro = { 0.67,0.67,0.67 };
+color laranja = { 1.0, 0.6, 0.2 };
 
 void redimensiona(int w, int h)
 {
@@ -63,6 +76,8 @@ void desenhaCubo(float s)
 
 void desenha()
 {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     glLoadIdentity();
 
     glPushMatrix();
@@ -70,52 +85,32 @@ void desenha()
     desenhaCubo(8.0);
     glPopMatrix();
 
+    glPushMatrix();
     glTranslatef(20.0, 0.0, -50.0);
     desenhaCubo(8.0);
+    glPopMatrix();
+
+    glutSwapBuffers();
 }
 
-int main(void)
+void inicializa()
 {
-    const int LARGURA = 800;
-    const int ALTURA = 600;
-
-    /* Inicializa a biblioteca */
-    glfwInit();
-
-    /* Cria uma janela em modo de janela e seu contexto OpenGL */
-    GLFWwindow* janela = glfwCreateWindow(LARGURA, ALTURA, "Desenha Cubo", NULL, NULL);
-
-    /* Torna o contexto da janela atual */
-    glfwMakeContextCurrent(janela);
-
-    // -- início
     glClearColor(0.0, 0.15, 0.25, 1.0); // cor de fundo
     glEnable(GL_DEPTH_TEST);
+}
 
-    /* Loop até que o usuário feche a janela */
-    while (!glfwWindowShouldClose(janela))
-    {
-        /* Aguarda e processa eventos */
-        glfwPollEvents();
-        if (glfwGetKey(janela, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        {
-            glfwSetWindowShouldClose(janela, GLFW_TRUE);
-        }
+int main(int argc, char** argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+    glutCreateWindow("Desenha Cubo");
 
-        /* Renderiza aqui */
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    inicializa();
 
-        int largura, altura;
-        glfwGetFramebufferSize(janela, &largura, &altura);
+    glutReshapeFunc(redimensiona);
+    glutDisplayFunc(desenha);
 
-        redimensiona(largura, altura);
+    glutMainLoop();
 
-        desenha();
-
-        /* Troca os buffers frontal e traseiro */
-        glfwSwapBuffers(janela);
-    }
-
-    glfwTerminate();
     return 0;
 }
