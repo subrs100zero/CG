@@ -1,6 +1,6 @@
 #include <GL/freeglut.h>
 
-void display()
+void exibir()
 {
     /* Renderiza aqui */
     glClear(GL_COLOR_BUFFER_BIT);
@@ -21,7 +21,7 @@ int main(int argc, char** argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutCreateWindow("Olá Mundo");
 
-    glutDisplayFunc(display);
+    glutDisplayFunc(exibir);
 
     /* Loop até o usuário fechar a janela */
     glutMainLoop();
