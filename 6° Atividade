@@ -1,0 +1,79 @@
+#include <windows.h>
+#include <stdio.h>
+#include <GL/glut.h>
+
+int mouseX, mouseY;
+int largura_tela = 500;
+int altura_tela = 275;
+int x_vermelho = 10;
+int y_vermelho = 10;
+int x_verde = 310;
+int y_verde = 10;
+int tamanho1 = 200;
+int tamanho2 = 100;
+
+int init() {
+    glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(-100.0, 100.0, -100.0, 100.0);
+}
+
+void desenha_objeto() {
+    glBegin(GL_TRIANGLES);
+        glVertex2i(50, -50);
+        glVertex2i(0, 50);
+        glVertex2i(-50, -50);
+    glEnd();
+    glBegin(GL_LINE_LOOP);
+        glVertex2i(-99, -99);
+        glVertex2i(99, -99);
+        glVertex2i(99, 99);
+        glVertex2i(-99, 99);
+    glEnd();
+}
+
+void display() {
+    glClear(GL_COLOR_BUFFER_BIT);
+    glViewport(x_vermelho, y_vermelho, tamanho1, tamanho1);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glColor3f(1.0f, 0.0f, 0.0f);
+    desenha_objeto();
+
+    glViewport(x_verde, y_verde, tamanho2, tamanho2);
+    glLoadIdentity();
+    glColor3f(0.0f, 1.0f, 0.0f);
+    glRotatef(90, 0, 0, 1);
+    desenha_objeto();
+
+    glPointSize(5.0f);
+    glBegin(GL_POINTS);
+        glColor3f(0.0f, 0.0f, 1.0f);
+        glVertex2i(mouseX, mouseY);
+    glEnd();
+
+    glFlush();
+}
+
+void mouseClick(int button, int state, int x, int y) {
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+        mouseX = x - x_vermelho - tamanho1/2;
+        mouseY = -(y - altura_tela + tamanho1/2 + y_vermelho);
+        glutPostRedisplay();
+        printf("%d\n %d\n", mouseX, mouseY);
+    }
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowPosition(200, 0);
+    glutInitWindowSize(largura_tela, altura_tela);
+    glutCreateWindow("Viewing 2D");
+    init();
+    glutDisplayFunc(display);
+    glutMouseFunc(mouseClick);
+    glutMainLoop();
+    return 0;
+}
