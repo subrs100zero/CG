@@ -1,0 +1,99 @@
+#include <windows.h>
+#include <stdio.h>
+#include <GL/glut.h>
+
+GLfloat angle_cube = 0.0f;
+GLfloat angle_teapot = 0.0f;
+int selected_object = 1;
+
+void init() {
+    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glMatrixMode(GL_PROJECTION);
+    glOrtho(-5, 5, -5, 5, -5, 5);
+    glEnable(GL_DEPTH_TEST);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(5.0, 5.0, 10.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+}
+
+void drawCube() {
+    glutWireCube(2.0);
+}
+
+void drawTeapot() {
+    glutWireTeapot(1.4);
+}
+
+void display() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glLoadIdentity();
+
+    glPushMatrix();
+    glTranslatef(-2.5, 0.0, 0.0);
+    glRotatef(angle_cube, 1.0, 1.0, 1.0);
+    drawCube();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(2.5, 0.0, 0.0);
+    glRotatef(angle_teapot, 1.0, 0.0, 1.0);
+    drawTeapot();
+    glPopMatrix();
+
+    glutSwapBuffers();
+}
+
+void keyboard(unsigned char key, int x, int y) {
+    switch (key) {
+        case '1':
+            selected_object = 1;
+            break;
+        case '2':
+            selected_object = 2;
+            break;
+        case 27:
+            exit(0);
+            break;
+    }
+}
+
+void specialKeys(int key, int x, int y) {
+    switch (key) {
+        case GLUT_KEY_LEFT:
+            if (selected_object == 1)
+                angle_cube -= 5.0f;
+            else if (selected_object == 2)
+                angle_teapot -= 5.0f;
+            break;
+        case GLUT_KEY_RIGHT:
+            if (selected_object == 1)
+                angle_cube += 5.0f;
+            else if (selected_object == 2)
+                angle_teapot += 5.0f;
+            break;
+    }
+    glutPostRedisplay();
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+
+    glutInitWindowPosition(200, 0);
+    glutInitWindowSize(400, 400);
+    glutCreateWindow("Rotação de Objetos OpenGL");
+    glEnable(GL_DEPTH_TEST);
+
+    glutDisplayFunc(display);
+    glutKeyboardFunc(keyboard);
+    glutSpecialFunc(specialKeys);
+
+    init();
+
+    glutMainLoop();
+
+    return 0;
+}
